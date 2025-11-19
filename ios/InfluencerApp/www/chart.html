@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<body><canvas id="c"/></body>
+<script>
+async function load(){
+  try{
+    let res=await fetch('http://localhost:8080/api/influencer/test/metrics');
+    if(!res.ok) throw new Error('rate');
+    let d=await res.json();
+    new Chart(document.getElementById('c'),{type:'bar',data:{labels:['engagement'],datasets:[{data:[d.engagementRate]}]}});
+  }catch(e){document.body.innerHTML='<p>Error loading metrics (offline or rate-limited)</p>'}
+}
+load();
+</script>
+</html>
